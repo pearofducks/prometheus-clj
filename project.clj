@@ -5,10 +5,10 @@
   :license {:name "The Apache Software License, Version 2.0"
             :url  "http://www.apache.org/licenses/LICENSE-2.0.txt"}
 
-  :dependencies [[io.prometheus/simpleclient "0.0.14"]
-                 [io.prometheus/simpleclient_hotspot "0.0.14"]
-                 [io.prometheus/simpleclient_common "0.0.14"]
-                 [io.prometheus/simpleclient_pushgateway "0.0.14"]]
+  :dependencies [[io.prometheus/simpleclient "0.0.21"]
+                 [io.prometheus/simpleclient_hotspot "0.0.21"]
+                 [io.prometheus/simpleclient_common "0.0.21"]
+                 [io.prometheus/simpleclient_pushgateway "0.0.21"]]
 
   :min-lein-version "2.4.3"
 

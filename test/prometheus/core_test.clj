@@ -34,8 +34,17 @@
     (testing "adds a custom gauge"
       (let [store (prometheus/register-gauge store "test" "my_custom_gauge" "some gauge" ["foo"])]
         (prometheus/set-gauge store "test" "my_custom_gauge" 101 ["bar"])
-        (is (.contains (:body (prometheus/dump-metrics (:registry store)))
+        (is (.contains (:body (prometheus/dump-metrics registry))
                        "test_my_custom_gauge{foo=\"bar\",} 101.0"))))
+    (testing "increases/decreases a custom gauge"
+      (let [store (prometheus/register-gauge store "test" "my_custom_inc_gauge" "some gauge" ["foo"])]
+        (prometheus/set-gauge store "test" "my_custom_inc_gauge" 101 ["bar"])
+        (prometheus/inc-gauge store "test" "my_custom_inc_gauge" ["bar"])
+        (is (.contains (:body (prometheus/dump-metrics registry))
+                       "test_my_custom_inc_gauge{foo=\"bar\",} 102.0"))
+        (prometheus/dec-gauge store "test" "my_custom_inc_gauge" ["bar"])
+        (is (.contains (:body (prometheus/dump-metrics registry))
+                       "test_my_custom_inc_gauge{foo=\"bar\",} 101.0"))))
     (testing "adds a custom histogram"
       (let [store (prometheus/register-histogram
                     store

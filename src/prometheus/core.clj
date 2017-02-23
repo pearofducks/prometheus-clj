@@ -75,6 +75,20 @@
    (-> (gauge-with-labels (get-in store [:metrics namespace metric]) labels)
        (.set value))))
 
+(defn inc-gauge
+  "Inc the value of a registered gauge."
+  ([store namespace metric] (inc-gauge store namespace metric []))
+  ([store namespace metric labels]
+   (-> (gauge-with-labels (get-in store [:metrics namespace metric]) labels)
+       (.inc))))
+
+(defn dec-gauge
+  "Dec the value of a registered gauge."
+  ([store namespace metric] (dec-gauge store namespace metric []))
+  ([store namespace metric labels]
+   (-> (gauge-with-labels (get-in store [:metrics namespace metric]) labels)
+       (.dec))))
+
 (defn track-observation
   "Track the value of an observation for a registered histogram."
   ([store namespace metric value] (track-observation store namespace metric value []))
